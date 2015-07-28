@@ -1,9 +1,19 @@
 {
-  "name": "test-app",
-  "description": "hello world test app",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "express": "3.x"
-  }
+  "name": "nwen406-p1",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serendipiddy/nwen406-p1.git"
+  },
+  "author": "iddy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/serendipiddy/nwen406-p1/issues"
+  },
+  "homepage": "https://github.com/serendipiddy/nwen406-p1#readme"
 }
