@@ -6,6 +6,7 @@ app.use(express.static('html')); /* serving out static files in directory 'html'
                                     Perhaps also a POST-ing page. */
 
 var books = ["poe","gulliver","pride","siddhartha"];
+var lengthOfBook = [7898,8463,10658,3337];
 
 /* RESTful calls */
 app.get('/test', function(req, res) {
@@ -78,30 +79,53 @@ var processData = function(data) {
   passObject(data);
 }
 
-var manipulateData = function(input) {
-  var rv = "outputString";
+/* Gets four lines from Pride and Prejudice
+  The lines are determined using 16 byte 
+  hash of the input */
+var manipulateData = function(input, line_num) {
+  var h = hash(input);
+  var h_idx = 0;
   
+  console.log(h);
   
-  return rv;
+  var lines = [];
+  var l = 0;
+  while (h_idx < h.length) {
+    l += parseInt(h.substring(h_idx,h_idx+4),16);
+    for (var i = 4; i < 8; i+=2) {
+      // l += parseInt(h.charAt(h_idx+i),16);
+      l += parseInt(h.substring(h_idx+i,h_idx+i+2),16);
+      // console.log("l: "+l+" offset: "+i);
+    }
+    lines.push(l % line_num);
+    h_idx += 8;
+  }
+  
+  return readFile(lines);
 }
 
-/* Reading in a local text file */
-var readFile = function(file_num, hash) {
+/* Reading in a local text file
+  Returns 255 characters from text. */
+var readFile = function(lines) {
   var fs = require('fs');
-  var read = "";
-  if (file_num < books.length && file_num >= 0) {
-    fs.readFile(books[file_num], {encoding: 'utf-8'}, function(err, data) {
-      // console.log(data);
-      read = data.substring(0,10);
-    });
+  filename = __dirname+'/text/pride.txt';
+  var buf = fs.readFileSync(filename, {encoding: 'utf-8'});
+  var sp = buf.replace(/[^a-zA-Z\n]/g, "").split(/[\n]/);
+  
+  var rv = "";
+  for (var i = 0; i<lines.length; i++) {
+    // console.log(lines[i]+" "+sp[lines[i]]);
+    rv+=(sp[lines[i]]);
   }
-  console.log(read);
+  return rv.substring(0,256);
 };
 
 /* Hashes the string to X digit number, which are 
   coordinates for finding text in one of books */
 var hash = function (input_string) {
-  return input_string;
+  var md5 = require('md5');
+  h = md5(input_string);
+  return h;
 }
 
 /* Passes object on to next node
