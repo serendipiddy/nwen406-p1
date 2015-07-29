@@ -43,7 +43,7 @@ app.post('/api', function (req, res) {
 
 
 app.get('/api', function (req, res) {
-  return res.send('/api says: "GOT: <3 <(''<)"\n Oh noes! You should be using POST .OTL');
+  return res.send('/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL');
 });
 
 /* bind and listen for connections */
