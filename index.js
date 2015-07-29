@@ -138,7 +138,7 @@ var passObject = function (data) {
   var sent = false;
   
   /* pop destination from order */
-  var dest = data.order.pop();
+  var dest = data.order.shift();
   var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
 
   console.log('(sending) attempt to '+url;
