@@ -7,6 +7,7 @@ app.use(express.static('html')); /* serving out static files in directory 'html'
 
 var books = ["poe","gulliver","pride","siddhartha"];
 var lengthOfBook = [7898,8463,10658,3337];
+var latestData = "";
 
 /* RESTful calls */
 app.get('/test', function(req, res) {
@@ -118,9 +119,9 @@ var readFile = function(lines) {
     var words = sp[lines[i]].split(" ");
     for (var j = 0; j<words.length && j<4; j++) {
       rv += words[j];
-      console.log(words+" \n"+words[j]);
+      // console.log(words+" \n"+words[j]);
     }
-    console.log(rv);
+    // console.log(rv);
   }
   return rv.substring(0,50);
 };
