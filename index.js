@@ -37,7 +37,7 @@ app.post('/api', function (req, res) {
 });
 
 app.get('/api', function (req, res) {
-  return res.send('api says hello');
+  return res.send('api says GOT:hello');
 });
 
 /* bind and listen for connections */
