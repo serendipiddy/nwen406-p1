@@ -157,7 +157,7 @@ var passObject = function (data) {
     {json: data},  // NO: {json: JSON.stringify(data)},
     function(err, res, body) { // resp is from POST
       if (!err && res.statusCode == 200) {
-        console.log('success:\n'+body);
+        console.log('successfully sent');
       }
       else {
         console.log('err:'+err);
