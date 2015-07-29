@@ -78,7 +78,10 @@ var processData = function(data) {
   data.audit[name] = audit;
   
   if (data.order.length > 0) passObject(data);
-  else latestDate = data;
+  else {
+    console.log('(finished) use GET to retrieve data');
+    latestDate = data;
+  };
 }
 
 /* Gets four lines from Pride and Prejudice
