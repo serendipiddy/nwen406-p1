@@ -20,9 +20,20 @@ app.post('/test', function(req, res) {
 });
 
 app.post('/api', function (req, res) {
+  // if (!req.body.hasOwnProperty('name')) {
+    // res.statusCode = 400;
+    // return res.send('Error 400: Post syntax incorrect.');
+  // }
+  
   console.log(req.body);
   res.statusCode = 200; // status ok
+  
   return res.send();
+  // person.name = req.body.name;
+  // person.job = req.body.job;
+  // person.room = req.body.room;
+  // res.json(true);
+  
 });
 
 /* bind and listen for connections */
@@ -45,3 +56,32 @@ var readFile = function(file_num, hash) {
 var hash = function (input_string) {
   return input_string;
 }
+
+var send = function (jsonstring) {
+  var request = require('request');
+  var data = {
+    value:'the beginning value',
+    count: 0,
+    audit:{},
+    order:[
+      52.27.64.194,
+      52.27.64.194,
+      52.27.64.194
+    ]
+  };
+  
+  var dest = "52.27.64.194";
+  var url = "http://"+dest+":80/api"; // pop from order
+  
+  request(
+    url, 
+    JSON.stringify(data),
+    function(err, res, body) { // resp is from POST
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+      }
+    });
+  
+}
+
+send('string');
