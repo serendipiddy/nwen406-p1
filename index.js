@@ -141,7 +141,7 @@ var passObject = function (data) {
   var dest = data.order.shift();
   var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
 
-  console.log('(sending) attempt to '+url;
+  console.log('(sending) attempt to '+url);
       
   request.post(
     url, 
