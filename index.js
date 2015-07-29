@@ -135,22 +135,20 @@ var hash = function (input_string) {
     false - implies all nodes are skipped */
 var passObject = function (data) {
   var request = require('request');
+  var sent = false;
   
   /* pop destination from order */
   var dest = data.order.pop();
-
   var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
 
-  console.log('SENDING'
-      +'\nto:   '+url
-      +'\ndata: \n'+JSON.stringify(data, null, 2));
+  console.log('(sending) attempt to '+url;
       
   request.post(
     url, 
     {json: data},  
     function(err, res, body) { // resp is from POST
       if (!err && res.statusCode == 200) {
-        console.log('successfully sent');
+        console.log('(sending) successful');
       }
       else {console.log('err:'+err);}
     });
