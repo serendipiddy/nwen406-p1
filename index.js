@@ -144,7 +144,7 @@ var passObject = function (data) {
   }
   
   var lock = true;
-  
+  console.log('(sending)');
   while (data.order.length > 0 );
   {
     /* get destination from data.order[] */
