@@ -20,30 +20,62 @@ app.post('/test', function(req, res) {
 });
 
 app.post('/api', function (req, res) {
-  // if (!req.body.hasOwnProperty('name')) {
-    // res.statusCode = 400;
-    // return res.send('Error 400: Post syntax incorrect.');
-  // }
+  if (!req.body.hasOwnProperty('value') 
+    || !req.body.hasOwnProperty('count') 
+    || !req.body.hasOwnProperty('audit') 
+    || !req.body.hasOwnProperty('order')) {
+    res.statusCode = 400;
+    return res.send({
+      received:"Invalid JSON D:!"
+    });
+    // return res.send('Error 400: POST syntax incorrect.');
+  }
   
-  console.log('received:\n'+JSON.stringify(req.body, null, 2));
+  console.log('(new) JSON Received') // :\n'+JSON.stringify(req.body, null, 2));
   res.statusCode = 200; // status ok
+  res.json({
+    received:"Valid JSON :D"
+  });
   
-  return res.send('received JSON :D');
-  // person.name = req.body.name;
-  // person.job = req.body.job;
-  // person.room = req.body.room;
-  // res.json(true);
-  
+  processData(req.body);
 });
 
+
+
 app.get('/api', function (req, res) {
-  return res.send('api says GOT:hello');
+  return res.send('/api says: "GOT: <3 <(''<)"\n Oh noes! You should be using POST .OTL');
 });
 
 /* bind and listen for connections */
 var server = app.listen(3000, function() {
   console.log('Listening on port %d', server.address().port);
 });
+
+var processData = function(data) {
+  // var result = false;
+  
+  var name = 'jordan';
+  // var index = data.count++;
+  var audit = {};
+  audit.input = data.value;
+  audit.index = data.count++;
+  console.log('(input) '+audit.input);
+  
+  /* Do my playing */
+  console.log('('+audit.input+') Manipulating');
+  var mand = manipulateData(data.value);
+  console.log('('+audit.input+') Output: '+mand);
+  audit.output = mand;
+  data.value = mand;
+  
+  // set last
+  var date = new Date();
+  audit.time = date;
+  
+  // preserve count
+  
+  passObject(data);
+}
 
 /* Reading in a local text file */
 var readFile = function(file_num, hash) {
@@ -59,4 +91,40 @@ var readFile = function(file_num, hash) {
   coordinates for finding text in one of books */
 var hash = function (input_string) {
   return input_string;
+}
+
+/* Passes object on to next node
+  If next node does not respond, that node is skipped 
+  return: 
+    true  - if this managed to send
+    false - implies all nodes are skipped */
+var passObject = function (data) {
+  var request = require('request');
+  
+  var result = false; 
+
+  /* pop destination from order */
+  var dest = data.order.pop;
+  
+  // var dest = "52.27.64.194";
+  var url = "http://"+dest+"/api"; 
+
+  console.log('SENDING'
+      +'\nto:   '+url
+      // +'\ndata: \n'+JSON.stringify(data));
+      +'\ndata: \n'+JSON.stringify(data, null, 2));
+      
+  request.post(
+    url, 
+    {json: data},  // NO: {json: JSON.stringify(data)},
+    function(err, res, body) { // resp is from POST
+      if (!err && res.statusCode == 200) {
+        console.log('success:\n'+body);
+      }
+      else {
+        console.log('err:'+err);
+      }
+    });
+    
+  return result;
 }
