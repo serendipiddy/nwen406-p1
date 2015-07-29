@@ -78,10 +78,10 @@ var processData = function(data) {
 }
 
 var manipulateData = function(input) {
-  var rv = "";
+  var rv = "outputString";
   
   
-  return rv
+  return rv;
 }
 
 /* Reading in a local text file */
@@ -111,7 +111,7 @@ var passObject = function (data) {
   var result = false; 
 
   /* pop destination from order */
-  var dest = data.order.pop;
+  var dest = data.order.pop();
   
   // var dest = "52.27.64.194";
   var url = "http://"+dest+"/api"; 
