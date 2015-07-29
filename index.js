@@ -15,10 +15,12 @@ app.get('/test', function(req, res) {
 });
 
 app.post('/test', function(req, res) {
-  if (!req.body.hasOwnProperty('name')) {
+  if (!req.body.hasOwnProperty('value')) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
+  console.log("Recieved:"+req.body.value);
+  res.statusCode = 200;
 });
 
 app.post('/api', function (req, res) {
@@ -78,10 +80,7 @@ var processData = function(data) {
   data.audit[name] = audit;
   latestDate = data;
   
-  if (data.order.length > 0) passObject(data);
-  else {
-    console.log('(finished) use GET to retrieve data');
-  };
+  passObject(data);
 }
 
 /* Gets four lines from Pride and Prejudice
@@ -138,21 +137,30 @@ var hash = function (input_string) {
     false - implies all nodes are skipped */
 var passObject = function (data) {
   var request = require('request');
-  var sent = false;
   
-  /* pop destination from order */
-  var dest = data.order.shift();
-  var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
+  if (data.order.length <= 0) {
+    console.log('(finished) use GET to retrieve data');
+    return;
+  }
+  
+  var lock = true;
+  
+  while (data.order.length > 0 );
+  {
+    /* get destination from data.order[] */
+    var dest = data.order.shift();
+    var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
 
-  console.log('(sending) attempt to '+url);
-      
-  request.post(
-    url, 
-    {json: data},  
-    function(err, res, body) { // resp is from POST
-      if (!err && res.statusCode == 200) {
-        console.log('(sending) successful');
-      }
-      else {console.log('err:'+err);}
-    });
+    console.log('(sending) attempt to '+url);
+        
+    request.post(
+      url, 
+      {json: data},  
+      function(err, res, body) { // resp is from POST
+        if (!err && res.statusCode == 200) {
+          console.log('(sending) successful');
+        }
+        else {console.log('err:'+err);}
+      });
+  } 
 }

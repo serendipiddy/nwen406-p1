@@ -33,4 +33,44 @@ var send = function (data) {
     
 }
 
-send('hello');
+var passObject = function (data) {
+  var request = require('request');
+  
+  if (data.order.length <= 0) {
+    console.log('(finished) use GET to retrieve data');
+    return;
+  }
+  
+  var lock = true;
+  
+  while (data.order.length > 0 );
+  {
+    /* get destination from data.order[] */
+    var dest = data.order.shift();
+    var url = "http://"+dest+"/test";  // var dest = "52.27.64.194";
+
+    console.log('(sending) attempt to '+url);
+        
+    request.post(
+      url, 
+      {json: data},  
+      function(err, res, body) { // resp is from POST
+        if (!err && res.statusCode == 200) {
+          console.log('(sending) successful');
+        }
+        else {console.log('err:'+err);}
+      });
+  } 
+}
+
+var data = {
+    value:'the test value',
+    count: 0,
+    audit:{},
+    order:[
+      '52.27.64.12',
+      '52.27.64.194',
+      '52.27.64.194'
+    ]
+  };
+send(data);
