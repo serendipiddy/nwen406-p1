@@ -115,7 +115,7 @@ var readFile = function(lines) {
   var rv = "";
   for (var i = 0; i<lines.length; i++) {
     // console.log(lines[i]+" "+sp[lines[i]]);
-    var words = sp[lines[i]].replace(/[^a-zA-Z\n ]/g, "").split(" ");
+    var words = sp[lines[i]].replace(/[^a-zA-Z\n]/g, "").split(" ");
     for (var j = 0; j<words.length && j<5; j++) {
       rv += words[j];
     }
