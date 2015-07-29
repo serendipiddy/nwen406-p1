@@ -146,6 +146,8 @@ var passObject = function (data) {
 
   /* pop destination from order */
   var dest = data.order.pop();
+
+  console.log("dst: "+dest);
   
   // var dest = "52.27.64.194";
   var url = "http://"+dest+"/api"; 
