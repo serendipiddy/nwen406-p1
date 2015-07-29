@@ -77,7 +77,7 @@ var processData = function(data) {
   passObject(data);
 }
 
-var manipulateData(input) {
+var manipulateData = function(input) {
   var rv = "";
   
   
