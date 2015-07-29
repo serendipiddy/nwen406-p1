@@ -88,11 +88,14 @@ var manipulateData = function(input) {
 /* Reading in a local text file */
 var readFile = function(file_num, hash) {
   var fs = require('fs');
+  var read = "";
   if (file_num < books.length && file_num >= 0) {
     fs.readFile(books[file_num], {encoding: 'utf-8'}, function(err, data) {
-      console.log(data);
+      // console.log(data);
+      read = data.substring(0,10);
     });
   }
+  console.log(read);
 };
 
 /* Hashes the string to X digit number, which are 
