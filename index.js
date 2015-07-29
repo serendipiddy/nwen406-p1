@@ -42,10 +42,10 @@ app.post('/api', function (req, res) {
   processData(req.body);
 });
 
-
-
 app.get('/api', function (req, res) {
-  return res.send(JSON.stringify(latestData,null,2)+'\n\n/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL');
+  return res.send(
+    JSON.stringify(latestData,null,2)
+    +'\n\n/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL');
 });
 
 /* bind and listen for connections */
@@ -76,11 +76,11 @@ var processData = function(data) {
   
   // preserve count
   data.audit[name] = audit;
+  latestDate = data;
   
   if (data.order.length > 0) passObject(data);
   else {
     console.log('(finished) use GET to retrieve data');
-    latestDate = data;
   };
 }
 
