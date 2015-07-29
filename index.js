@@ -77,6 +77,13 @@ var processData = function(data) {
   passObject(data);
 }
 
+var manipulateData(input) {
+  var rv = "";
+  
+  
+  return rv
+}
+
 /* Reading in a local text file */
 var readFile = function(file_num, hash) {
   var fs = require('fs');
