@@ -110,12 +110,15 @@ var readFile = function(lines) {
   var fs = require('fs');
   filename = __dirname+'/text/'+books[2]+'.txt';
   var buf = fs.readFileSync(filename, {encoding: 'utf-8'});
-  var sp = buf.replace(/[^a-zA-Z\n]/g, "").split(/[\n]/);
+  var sp = buf.replace(/[^a-zA-Z\n] /g, "").split(/[\n]/);
   
   var rv = "";
   for (var i = 0; i<lines.length; i++) {
     // console.log(lines[i]+" "+sp[lines[i]]);
-    rv+=(sp[lines[i]]);
+    var words = sp[lines[i]].split(" ");
+    for (var j = 0; j<words.length && j<5; j++) {
+      rv += words[j];
+    }
   }
   return rv.substring(0,256);
 };
