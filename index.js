@@ -45,7 +45,7 @@ app.post('/api', function (req, res) {
 
 
 app.get('/api', function (req, res) {
-  return res.send('/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL');
+  return res.send(JSON.stringify(latestData,null,2)+'\n\n/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL');
 });
 
 /* bind and listen for connections */
@@ -75,9 +75,10 @@ var processData = function(data) {
   audit.time = date;
   
   // preserve count
-  
   data.audit[name] = audit;
-  passObject(data);
+  
+  if (data.order.length > 0) passObject(data);
+  else latestDate = data;
 }
 
 /* Gets four lines from Pride and Prejudice
@@ -87,16 +88,12 @@ var manipulateData = function(input, line_num) {
   var h = hash(input);
   var h_idx = 0;
   
-  // console.log(h);
-  
   var lines = [];
   var l = 0;
   while (h_idx < h.length) {
     l += parseInt(h.substring(h_idx,h_idx+4),16);
     for (var i = 4; i < 8; i+=2) {
-      // l += parseInt(h.charAt(h_idx+i),16);
       l += parseInt(h.substring(h_idx+i,h_idx+i+2),16);
-      // console.log("l: "+l+" offset: "+i);
     }
     lines.push(l % line_num);
     h_idx += 8;
@@ -115,13 +112,10 @@ var readFile = function(lines) {
   
   var rv = "";
   for (var i = 0; i<lines.length; i++) {
-    // console.log(lines[i]+" "+sp[lines[i]]);
     var words = sp[lines[i]].split(" ");
     for (var j = 0; j<words.length && j<4; j++) {
       rv += words[j];
-      // console.log(words+" \n"+words[j]);
     }
-    // console.log(rv);
   }
   return rv.substring(0,50);
 };
@@ -142,32 +136,22 @@ var hash = function (input_string) {
 var passObject = function (data) {
   var request = require('request');
   
-  var result = false; 
-
   /* pop destination from order */
   var dest = data.order.pop();
 
-  console.log("dst: "+dest);
-  
-  // var dest = "52.27.64.194";
-  var url = "http://"+dest+"/api"; 
+  var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
 
   console.log('SENDING'
       +'\nto:   '+url
-      // +'\ndata: \n'+JSON.stringify(data));
       +'\ndata: \n'+JSON.stringify(data, null, 2));
       
   request.post(
     url, 
-    {json: data},  // NO: {json: JSON.stringify(data)},
+    {json: data},  
     function(err, res, body) { // resp is from POST
       if (!err && res.statusCode == 200) {
         console.log('successfully sent');
       }
-      else {
-        console.log('err:'+err);
-      }
+      else {console.log('err:'+err);}
     });
-    
-  return result;
 }
