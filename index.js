@@ -64,7 +64,7 @@ var processData = function(data) {
   
   /* Do my playing */
   console.log('('+audit.input+') Manipulating');
-  var mand = manipulateData(data.value);
+  var mand = manipulateData(data.value, lengthOfBook[2]);
   console.log('('+audit.input+') Output: '+mand);
   audit.output = mand;
   data.value = mand;
@@ -108,7 +108,7 @@ var manipulateData = function(input, line_num) {
   Returns 255 characters from text. */
 var readFile = function(lines) {
   var fs = require('fs');
-  filename = __dirname+'/text/pride.txt';
+  filename = __dirname+'/text/'+books[2]+'.txt';
   var buf = fs.readFileSync(filename, {encoding: 'utf-8'});
   var sp = buf.replace(/[^a-zA-Z\n]/g, "").split(/[\n]/);
   
