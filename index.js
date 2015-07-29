@@ -63,9 +63,9 @@ var processData = function(data) {
   console.log('(input) '+audit.input);
   
   /* Do my playing */
-  console.log('('+audit.input+') Manipulating');
+  console.log('('+audit.input.substring(10)+') Manipulating');
   var mand = manipulateData(data.value, lengthOfBook[2]);
-  console.log('('+audit.input+') Output: '+mand);
+  console.log('('+audit.input.substring(10)+') Output: '+mand);
   audit.output = mand;
   data.value = mand;
   
@@ -86,7 +86,7 @@ var manipulateData = function(input, line_num) {
   var h = hash(input);
   var h_idx = 0;
   
-  console.log(h);
+  // console.log(h);
   
   var lines = [];
   var l = 0;
