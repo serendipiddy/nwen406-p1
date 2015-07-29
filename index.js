@@ -36,6 +36,10 @@ app.post('/api', function (req, res) {
   
 });
 
+app.get('/api', function (req, res) {
+  return res.send('api says hello');
+});
+
 /* bind and listen for connections */
 var server = app.listen(3000, function() {
   console.log('Listening on port %d', server.address().port);
