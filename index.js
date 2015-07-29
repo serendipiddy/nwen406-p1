@@ -77,7 +77,7 @@ var send = function (jsonstring) {
     url, 
     JSON.stringify(data),
     function(err, res, body) { // resp is from POST
-      if (!error && response.statusCode == 200) {
+      if (!err && res.statusCode == 200) {
         console.log(body);
       }
     });
