@@ -74,6 +74,7 @@ var processData = function(data) {
   
   // preserve count
   
+  data.audit[name] = audit;
   passObject(data);
 }
 
