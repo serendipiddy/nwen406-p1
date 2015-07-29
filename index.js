@@ -28,7 +28,7 @@ app.post('/api', function (req, res) {
   console.log('received:\n'+JSON.stringify(req.body));
   res.statusCode = 200; // status ok
   
-  return res.send();
+  return res.send('received JSON :D');
   // person.name = req.body.name;
   // person.job = req.body.job;
   // person.room = req.body.room;
