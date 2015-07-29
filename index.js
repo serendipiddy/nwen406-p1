@@ -63,9 +63,9 @@ var processData = function(data) {
   console.log('(input) '+audit.input);
   
   /* Do my playing */
-  console.log('(aAad'+audit.input.substring(10)+') Manipulating');
+  console.log('(aAad'+audit.input.substring(0,10)+') Manipulating');
   var mand = manipulateData(data.value, lengthOfBook[2]);
-  console.log('('+audit.input.substring(10)+') Output: '+mand);
+  console.log('('+audit.input.substring(0,10)+') Output: '+mand);
   audit.output = mand;
   data.value = mand;
   
@@ -120,7 +120,7 @@ var readFile = function(lines) {
       rv += words[j];
     }
   }
-  return rv.substring(0,256);
+  return rv.substring(0,100);
 };
 
 /* Hashes the string to X digit number, which are 
