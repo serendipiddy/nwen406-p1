@@ -63,7 +63,7 @@ var processData = function(data) {
   console.log('(input) '+audit.input);
   
   /* Do my playing */
-  console.log('(aAad'+audit.input.substring(0,10)+') Manipulating');
+  console.log('('+audit.input.substring(0,10)+') Manipulating');
   var mand = manipulateData(data.value, lengthOfBook[2]);
   console.log('('+audit.input.substring(0,10)+') Output: '+mand);
   audit.output = mand;
@@ -118,10 +118,11 @@ var readFile = function(lines) {
     var words = sp[lines[i]].replace(/[^a-zA-Z\n]/g,"").split(" ");
     for (var j = 0; j<words.length && j<3; j++) {
       rv += words[j];
+      console.log(words+" \n"+word[j]);
     }
     console.log(rv);
   }
-  return rv.substring(0,100);
+  return rv.substring(0,50);
 };
 
 /* Hashes the string to X digit number, which are 
