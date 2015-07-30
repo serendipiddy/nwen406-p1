@@ -83,7 +83,7 @@ app.get('/api/final', function (req, res) {
 /* bind and listen for connections */
 var server = app.listen(3000, function() {
   // console.log('Listening on port %d', server.address().port);
-  console.log('Server running');
+  console.log('(Server running)');
 });
 
 var processData = function(data, time) {
