@@ -20,6 +20,7 @@ app.post('/test', function(req, res) {
     return res.send('Error 400: Post syntax incorrect.');
   }
   console.log("Recieved:"+req.body.value);
+  console.log("Recieved:"+req);
   res.statusCode = 200;
 });
 
@@ -145,13 +146,12 @@ var passObject = function (data) {
   
   var lock = true;
   console.log('(sending)');
-  while (data.order.length > 0 );
-  {
+  while (data.order.length > 0) {
     /* get destination from data.order[] */
     var dest = data.order.shift();
     var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
 
-    console.log('(sending) attempt to '+url);
+    console.log('(sending) attempt   to '+dest);
         
     request.post(
       url, 
@@ -160,7 +160,7 @@ var passObject = function (data) {
         if (!err && res.statusCode == 200) {
           console.log('(sending) successful');
         }
-        else {console.log('err:'+err);}
+        else {console.log('(err) '+err);}
       });
   } 
 }
