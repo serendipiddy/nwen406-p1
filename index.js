@@ -23,6 +23,7 @@ app.post('/test', function(req, res) {
   // console.log("Recieved:"+JSON.stringify(req,null,2));
   res.statusCode = 200;
   res.send('Received by 52.27.64.194 (Jordan)');
+  latestData = req.body;
 });
 
 app.post('/api', function (req, res) {
