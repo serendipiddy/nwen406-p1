@@ -73,7 +73,7 @@ app.post('/api', function (req, res) {
 });
 
 app.get('/api', function (req, res) {
-  return res.json({latest:latestData,final:finalData);
+  return res.json({latest:latestData,final:finalData});
 });
 
 app.get('/api/final', function (req, res) {
