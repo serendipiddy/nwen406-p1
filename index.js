@@ -21,7 +21,15 @@ app.get('/log', function(req, res) {
   var buf = fs.readFileSync(filename);
   
   console.log('(Log requested)'+ new Date());
-  res.send(buf);
+  res.write('<html>');
+  res.write('<head>');
+  res.write('<title>Log file</title>');
+  res.write('</head>');
+  res.write('<body>');
+  res.write(buf);
+  res.write('</body>');
+  res.write('</html>');
+  res.send();
 });
 
 app.get('/test', function(req, res) {
