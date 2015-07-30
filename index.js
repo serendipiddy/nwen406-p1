@@ -7,7 +7,7 @@ app.use(express.static('html')); /* serving out static files in directory 'html'
 
 var books = ["poe","gulliver","pride","siddhartha"];
 var lengthOfBook = [7898,8463,10658,3337];
-var latestData = "";
+var latestData = {latest: 'none'};
 
 /* RESTful calls */
 app.get('/alive',function(req,res) {
@@ -70,29 +70,29 @@ var processData = function(data, time) {
   var audit = {};
   audit.input = data.value;
   audit.index = data.count++;
-  console.log('(input) '+audit.input);
+  audit.time = new Date(time).toUTCString();
+  console.log('(processing) Input: '+audit.input);
   
   /* Do my playing */
-  console.log('('+audit.input.substring(0,10)+') Manipulating');
-  var mand = manipulateData(data.value, lengthOfBook[2]);
-  console.log('('+audit.input.substring(0,10)+') Output: '+mand);
+  // console.log('('+audit.input.substring(0,10)+') Manipulating');
+  var book = 2;
+  var mand = manipulateData(data.value, book);
+  console.log('(processing) Output: '+mand);
   audit.output = mand;
   data.value = mand;
   
-  // set last
-  audit.time = new Date(time).toUTCString();
-  
-  // preserve count
+  console.log('(processing) attaching audit');
   data.audit[name] = audit;
-  latestDate = data;
+  // latestData = data;
   
+  /* Send to next */
   nextDest(data);
 }
 
 /* Gets four lines from Pride and Prejudice
   The lines are determined using 16 byte 
   hash of the input */
-var manipulateData = function(input, line_num) {
+var manipulateData = function(input, book) {
   var h = hash(input);
   var h_idx = 0;
   
@@ -103,18 +103,19 @@ var manipulateData = function(input, line_num) {
     for (var i = 4; i < 8; i+=2) {
       l += parseInt(h.substring(h_idx+i,h_idx+i+2),16);
     }
-    lines.push(l % line_num);
+    lines.push(l % lengthOfBook[book]);
     h_idx += 8;
   }
   
-  return readFile(lines);
+  console.log('(processing) lines {'.lines.toString()+' of '+books[book]);
+  return readLines(lines,book);
 }
 
-/* Reading in a local text file
-  Returns 255 characters from text. */
-var readFile = function(lines) {
+/* Read the given lines from a given book number
+  Returns 50 characters from the text. */
+var readLines = function(lines,book) {
   var fs = require('fs');
-  filename = __dirname+'/text/'+books[2]+'.txt';
+  filename = __dirname+'/text/'+books[book]+'.txt';
   var buf = fs.readFileSync(filename, {encoding: 'utf-8'});
   var sp = buf.replace(/[^a-zA-Z \n]/g,"").split(/[\n]/);
   
