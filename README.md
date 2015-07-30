@@ -7,16 +7,16 @@ A server in an cluster of servers. Each takes a JSON string, alters a value, and
 listens on port 3000.
 
 ##RESTful interface:
-*GET: /alive*
+**GET: /alive**
   check if server is alive
 
-*GET: /log*
+**GET: /log**
   prints the current logs (supplied by forever)
 
-*GET: /api*
+**GET: /api**
   prints the latest files processed
 
-*POST: /api*
+**POST: /api**
   input for the JSON to be manipulated.
   Accepts JSON of the structure:
   ```javascript
