@@ -1,0 +1,74 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdftex 2015.2.6)  30 JUL 2015 16:05
+entering extended mode
+**C:/Users/iddy/Dropbox/school/2015/nwen406/nwen406-p1/index-local.js
+(C:/Users/iddy/Dropbox/school/2015/nwen406/nwen406-p1/index-local.js
+Overfull \hbox (52.30151pt too wide) in paragraph at lines 1--7
+[]\tenrm var ex-press = re-quire('express'); var app = ex-press(); app.use(expr
+ess.bodyParser()); app.use(express.static('html'));|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm v
+.\kern-0.55556
+.\tenrm a
+.\tenrm r
+.etc.
+
+
+Overfull \hbox (13.13486pt too wide) in paragraph at lines 21--32
+\tenrm res.statusCode = 200; res.send('Received by <home-ip> (Jor-dan)'); lat-e
+st-Data = req.body; con-sole.log(req.body);|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\tenrm r
+.\tenrm e
+.\tenrm s
+.\tenrm .
+.\tenrm s
+.etc.
+
+
+Overfull \hbox (45.85725pt too wide) in paragraph at lines 33--44
+[]\tenrm app.post('/api', func-tion (req, res)  if (!req.body.hasOwnProperty('v
+alue') || !req.body.hasOwnProperty('count')|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm a
+.\tenrm p
+.\tenrm p
+.\tenrm .
+.etc.
+
+
+Overfull \hbox (16.22163pt too wide) in paragraph at lines 45--49
+[]\tenrm var theTime = new Date(); con-sole.log('(new JSON) '+new Date(theTime)
+.toGMTString()); res.statusCode|
+
+\hbox(7.5+2.5)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm v
+.\kern-0.55556
+.\tenrm a
+.\tenrm r
+.etc.
+
+! Argument of \' has an extra }.
+<inserted text> 
+                \par 
+<to be read again> 
+                   }
+l.55 ...// '<html><body>/api says: "GOT: <3 <(\'\'
+                                                  <)\n Oh noes! You should b...
+
+? 
+! Emergency stop.
+<inserted text> 
+                \par 
+<to be read again> 
+                   }
+l.55 ...// '<html><body>/api says: "GOT: <3 <(\'\'
+                                                  <)\n Oh noes! You should b...
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!
