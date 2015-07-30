@@ -165,7 +165,7 @@ var nextDest = function (data) {
     var url = "http://"+dest+"/api"; 
     attempt = 0;
     
-    console.log('(sending) next dest: '+url);
+    console.log('(sending)  next dest: '+url);
     tryToSend(data, url, attempt);
   }
   else {
