@@ -152,8 +152,10 @@ var tryToSend = function(data, dest, attempt) {
     console.log('(sending)  '+dest+' attempt #'+attempt);
     request.post(
       dest, 
-      {json: data},  
-      timeout: 1000, // milliseconds
+      { // options
+        json: data,
+        timeout: 1000, // milliseconds
+      },  
       // timeout: parseInt(process.argv[2]),
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == status200) {
