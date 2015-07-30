@@ -168,7 +168,7 @@ var tryToSend = function(data, dest, attempt) {
 var nextDest = function (data) {
   if (data.order.length > 0) {
     var dest = data.order.shift();
-    var url = "http://"+dest+"/test"; 
+    var url = "http://"+dest+"/api"; 
     attempt = 0;
     
     console.log('(sending) next dest:'+url);

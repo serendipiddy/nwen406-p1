@@ -59,7 +59,7 @@ var data = {
       '52.27.64.194'
     ]
   };
-nextDest(data);
+senda(data);
 
 
 
