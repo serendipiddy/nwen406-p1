@@ -23,7 +23,7 @@ app.post('/test', function(req, res) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
-  console.log("(Recieved) \""+req.body.value+"\"");
+  console.log("(test-Recieved) \""+req.body.value+"\"");
   // console.log("Recieved:"+JSON.stringify(req,null,2));
   res.statusCode = 200;
   res.send('Received by 52.27.64.194 (Jordan)');
@@ -46,7 +46,7 @@ app.post('/api', function (req, res) {
   console.log('(new) JSON Received') // :\n'+JSON.stringify(req.body, null, 2));
   res.statusCode = 200; // status ok
   res.json({
-    received:"Valid JSON :D"
+    receivedBy: '52.27.64.194 (Jordan)'
   });
   
   processData(req.body);
