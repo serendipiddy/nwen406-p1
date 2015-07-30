@@ -10,6 +10,9 @@ var lengthOfBook = [7898,8463,10658,3337];
 var latestData = "";
 
 /* RESTful calls */
+app.get('/alive',function(req,res) {
+  res.send('alive');
+}
 app.get('/test', function(req, res) {
   res.send("Hello :)");
 });
@@ -84,7 +87,7 @@ var processData = function(data) {
   data.audit[name] = audit;
   latestDate = data;
   
-  passObject(data);
+  nextDest(data);
 }
 
 /* Gets four lines from Pride and Prejudice
@@ -134,36 +137,52 @@ var hash = function (input_string) {
   return h;
 }
 
-/* Passes object on to next node
-  If next node does not respond, that node is skipped 
-  return: 
-    true  - if this managed to send
-    false - implies all nodes are skipped */
-var passObject = function (data) {
-  var request = require('request');
-  
-  if (data.order.length <= 0) {
-    console.log('(finished) use GET to retrieve data');
-    return;
-  }
-  
-  var lock = true;
-  console.log('(sending)');
-  while (data.order.length > 0) {
-    /* get destination from data.order[] */
-    var dest = data.order.shift();
-    var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
-
-    console.log('(sending) attempt   to '+dest);
-        
+ /* Tries to send data to destination.
+  On the third attempt, skips the current address. */
+var tryToSend = function(data, dest, attempt) {
+  if (attempt > 2) 
+    nextDest(data);
+  else {
+    var request = require('request');
+    console.log('(sending) attempt'+attempt);
     request.post(
-      url, 
+      dest, 
       {json: data},  
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == 200) {
           console.log('(sending) successful');
+          console.log('(response) '+body);
+          console.log('(complete)');
         }
-        else {console.log('(err) '+err);}
+        else {
+          console.log('(sending) err: '+err);
+          tryToSend(data,dest,attempt+1);
+        }
       });
-  } 
+  };
+}
+
+/* Pops ('slides') the next address, then attempts to send. 
+  If there's no next address, dumps the final JSON*/
+var nextDest = function (data) {
+  if (data.order.length > 0) {
+    var dest = data.order.shift();
+    var url = "http://"+dest+"/test"; 
+    attempt = 0;
+    
+    console.log('(sending) next dest:'+url);
+    tryToSend(data, url, attempt);
+  }
+  else {
+    console.log('(sending) no next address');
+    dumpCurrentJSON(data);
+  }
+}
+
+/* Completes a sending sequence. Makes the
+  JSON data available through: GET .../api */
+var dumpCurrentJSON = function(data) {
+  console.log('(complete) Final JSON:');
+  latestData = data;
+  console.log(JSON.stringify(data, null, 2));
 }

@@ -34,36 +34,7 @@ var senda = function (data) {
 }
 
 
-
-var passObject = function (data) {
-  var request = require('request');
-  console.log('(passingObject)');
-  
-  if (data.order.length <= 0) {
-    console.log('(finished) use GET to retrieve data');
-    return;
-  }
-  
-  
-  var lock = true;
-  /* get destination from data.order[] */
-  var dest = data.order.shift();
-  var url = "http://"+dest+"/test";  // var dest = "52.27.64.194";
-
-  console.log('(sending) attempt to '+url+' left:'+data.order.length);
-      
-  request.post(
-    url, 
-    {json: data},  
-    function(err, res, body) { // resp is from POST
-      if (!err && res.statusCode == 200) {
-        console.log('(sending) successful');
-      }
-      else {console.log('err:'+err);}
-      lock = false;
-    });
-};
-
+/* Used to figure out steps and functions to use */
 var pass = function(data) {
   // check dest
     // if an address is left 
@@ -74,51 +45,7 @@ var pass = function(data) {
 
 }
 
- /* Tries to send data to destination.
-  On the third attempt, skips the current address. */
-var tryToSend = function(data, dest, attempt) {
-  if (attempt > 2) 
-    nextDest(data);
-  else {
-    var request = require('request');
-    console.log('(sending) attempt:'+attempt);
-    request.post(
-      dest, 
-      {json: data},  
-      function(err, res, body) { // resp is from POST
-        if (!err && res.statusCode == 200) {
-          console.log('(sending) successful');
-          console.log('(response) '+body);
-        }
-        else {console.log('(sending) err: '+err);}
-        tryToSend(data,dest,attempt+1);
-      });
-  };
-}
 
-/* slides the next address, then tries to send. 
-  If no address dumps JSON*/
-var nextDest = function (data) {
-  if (data.order.length > 0) {
-    var dest = data.order.shift();
-    var url = "http://"+dest+"/test";  // var dest = "52.27.64.194";
-    attempt = 0;
-    
-    console.log('(sending) next dest:'+url);
-    tryToSend(data, url, attempt);
-  }
-  else {
-    console.log('(sending) no next address');
-    dumpCurrentJSON(data);
-  }
-}
-
-/* Completes a sending sequence. Making the
-  JSON data available through a web interface. */
-var dumpCurrentJSON = function(data) {
-  console.log('(complete)');
-  console.log(JSON.stringify(data, null, 2));
-}
 
 var data = {
     value:'the test value',
@@ -127,13 +54,52 @@ var data = {
     order:[
       'localhost',
       '52.27.64.194',
-      '52.27.18.155',
-      '52.27.228.163',
+      // '52.27.18.155',
+      // '52.27.228.163',
       '52.27.64.194'
     ]
   };
 nextDest(data);
 
+
+
+
+
+
+/* Passes object on to next node
+  If next node does not respond, that node is skipped 
+  return: 
+    true  - if this managed to send
+    false - implies all nodes are skipped */
+
+var passObject = function (data) {
+  var request = require('request');
+  
+  if (data.order.length <= 0) {
+    console.log('(finished) use GET to retrieve data');
+    return;
+  }
+  
+  var lock = true;
+  console.log('(sending)');
+  while (data.order.length > 0) {
+    /* get destination from data.order[] */
+    var dest = data.order.shift();
+    var url = "http://"+dest+"/api";  // var dest = "52.27.64.194";
+
+    console.log('(sending) attempt   to '+dest);
+        
+    request.post(
+      url, 
+      {json: data},  
+      function(err, res, body) { // resp is from POST
+        if (!err && res.statusCode == 200) {
+          console.log('(sending) successful');
+        }
+        else {console.log('(err) '+err);}
+      });
+  } 
+}
 
 /* 
 Team Addresses:
