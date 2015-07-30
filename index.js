@@ -7,8 +7,8 @@ app.use(express.static('html')); /* serving out static files in directory 'html'
 
 var books = ["poe","gulliver","pride","siddhartha"];
 var lengthOfBook = [7898,8463,10658,3337];
-var latestData = {latest: 'none'};
-var finalData = {final: 'none'};
+var latestData = 'none';
+var finalData = 'none';
 var status200 = 202; // HTTP status used by the API
 
 /* RESTful calls */
