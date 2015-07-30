@@ -50,4 +50,4 @@ Listens on port 3000.
 
 The value string received is hased (MD5). The hash is then used to determine four positions from within Pride And Prejudice to read up to 5 words from that point. The first 50 characters of this output is then sent as the next value.
 
-Other book options are available, but must be set in code.
+Other book options are available in *text*, but must be set in-code.
