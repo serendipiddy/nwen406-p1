@@ -1,15 +1,13 @@
 var express = require('express');
 var app = express();
 app.use(express.bodyParser());
-app.use(express.static('html')); /* serving out static files in directory 'html' 
-                                    will use to serve a D3 animation, if time.
-                                    Perhaps also a POST-ing page. */
 
 var books = ["poe","gulliver","pride","siddhartha"];
 var lengthOfBook = [7898,8463,10658,3337];
 var latestData = 'none';
 var finalData = 'none';
 var status200 = 202; // HTTP status used by the API
+var foreverPath = '/home/ec2-user/.forever'
 
 /* RESTful calls */
 app.get('/alive',function(req,res) {
@@ -18,7 +16,7 @@ app.get('/alive',function(req,res) {
 
 app.get('/log', function(req, res) {
   var fs = require('fs');
-  var filename = '/home/ec2-user/.forever/index.log';
+  var filename = foreverPath+'/index.log';
   var buf = fs.readFileSync(filename);
   
   console.log('(Log requested)'+ new Date());
@@ -45,7 +43,6 @@ app.post('/test', function(req, res) {
     return res.send('Error 400: Post syntax incorrect.');
   }
   console.log("(test-Recieved) \""+req.body.value+"\"");
-  // console.log("Recieved:"+JSON.stringify(req,null,2));
   res.statusCode = status200;
   res.send('Received by 52.27.64.194 (Jordan)');
   latestData = req.body;
@@ -61,7 +58,6 @@ app.post('/api', function (req, res) {
     return res.send({
       received:"Invalid JSON D:!"
     });
-    // return res.send('Error 400: POST syntax incorrect.');
   }
   
   var theTime = new Date();
