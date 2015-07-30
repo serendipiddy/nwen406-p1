@@ -6,7 +6,7 @@ A server in an cluster of servers. Each takes a JSON string, alters a value, and
 
 listens on port 3000.
 
-##RESTful interface:
+##RESTful Interface:
 **GET: /alive**
   check if server is alive
 
@@ -28,11 +28,21 @@ listens on port 3000.
     order: [],   /* queue of addresses to be visited */
   }
   ```
+  
+  Where audit is an object inserted by each hop, of the form:
+  ```javascript
+  {
+    input: 'string to be altered',
+    output: 'string altered',
+    index: 0,                /* this nodes hop count */
+    time: "Day, ... GMT",    /* time of receipt of input */
+  }
+  ```
 
   
 
 ## Data Manipulation Performed
 
-The value string received is hased (MD5). The hash is then used to determine four positions from within Pride And Prejudice to read text from. the first 50 characters of this output is then sent as the next value.
+The value string received is hased (MD5). The hash is then used to determine four positions from within Pride And Prejudice to read up to 5 words from that point. The first 50 characters of this output is then sent as the next value.
 
 Other book options are available, but must be set in code.
