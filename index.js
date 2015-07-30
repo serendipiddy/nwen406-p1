@@ -8,6 +8,7 @@ app.use(express.static('html')); /* serving out static files in directory 'html'
 var books = ["poe","gulliver","pride","siddhartha"];
 var lengthOfBook = [7898,8463,10658,3337];
 var latestData = {latest: 'none'};
+var status200 = 202; // HTTP status used by the API
 
 /* RESTful calls */
 app.get('/alive',function(req,res) {
@@ -25,7 +26,7 @@ app.post('/test', function(req, res) {
   }
   console.log("(test-Recieved) \""+req.body.value+"\"");
   // console.log("Recieved:"+JSON.stringify(req,null,2));
-  res.statusCode = 200;
+  res.statusCode = status200;
   res.send('Received by 52.27.64.194 (Jordan)');
   latestData = req.body;
   console.log(req.body);
@@ -45,7 +46,7 @@ app.post('/api', function (req, res) {
   
   var theTime = new Date();
   console.log('(new JSON) '+new Date(theTime).toGMTString());
-  res.statusCode = 200; // status ok
+  res.statusCode = status200; // status ok
   res.send('Received by 52.27.64.194 (Jordan)');
   
   processData(req.body,theTime);
@@ -144,7 +145,7 @@ var tryToSend = function(data, dest, attempt) {
       dest, 
       {json: data},  
       function(err, res, body) { // resp is from POST
-        if (!err && res.statusCode == 200) {
+        if (!err && res.statusCode == status200) {
           console.log('(sending)  '+dest+': successful');
           console.log('(response) '+dest+' '+body);
           console.log('(complete) '+dest);
