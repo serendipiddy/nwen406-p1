@@ -19,8 +19,8 @@ app.post('/test', function(req, res) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
-  console.log("Recieved:"+req.body.value);
-  console.log("Recieved:"+JSON.stringify(req,null,2));
+  console.log("Recieved: \""+req.body.value+"\"");
+  // console.log("Recieved:"+JSON.stringify(req,null,2));
   res.statusCode = 200;
   res.send('Received by jordan');
 });
