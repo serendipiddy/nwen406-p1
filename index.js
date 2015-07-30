@@ -44,8 +44,7 @@ app.post('/api', function (req, res) {
   }
   
   var theTime = new Date();
-  console.log('(new) '+new Date(theTime).toGMTString());
-  console.log('(new) JSON Received');
+  console.log('(new) JSON Received '+new Date(theTime).toGMTString());
   res.statusCode = 200; // status ok
   res.send('Received by 52.27.64.194 (Jordan)');
   
