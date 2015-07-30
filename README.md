@@ -1,25 +1,24 @@
 # nwen406-p1
 
-First project,
+The first project for NWEN406.
 
 A server in an cluster of servers. Each takes a JSON string, alters a value, and passes it on.
 
 listens on port 3000.
 
-RESTful interface:
-GET: /alive
+##RESTful interface:
+*GET: /alive*
   check if server is alive
 
-GET: /log 
+*GET: /log*
   prints the current logs (supplied by forever)
 
-GET: /api
+*GET: /api*
   prints the latest files processed
 
-POST: /api
+*POST: /api*
   input for the JSON to be manipulated.
-
-  accepts JSON of the structure:
+  Accepts JSON of the structure:
   ```javascript
   {
     value: 'string to be altered',
@@ -31,7 +30,7 @@ POST: /api
 
   Returns HTTP 202 accepted.
 
-## Manipulation
+## Data Manipulation Performed
 
 The value string received is hased (MD5). The hash is then used to determine four positions from within Pride And Prejudice to read text from. the first 50 characters of this output is then sent as the next value.
 
