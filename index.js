@@ -12,7 +12,8 @@ var latestData = "";
 /* RESTful calls */
 app.get('/alive',function(req,res) {
   res.send('alive');
-}
+});
+
 app.get('/test', function(req, res) {
   res.send("Hello :)");
 });
