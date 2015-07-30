@@ -43,8 +43,8 @@ app.post('/api', function (req, res) {
     // return res.send('Error 400: POST syntax incorrect.');
   }
   
-  var theTime = Date.UTC();
-  console.log('(new) '+theTime.toString());
+  var theTime = new Date();
+  console.log('(new) '+new Date(theTime).toGMTString());
   console.log('(new) JSON Received');
   res.statusCode = 200; // status ok
   res.send('Received by 52.27.64.194 (Jordan)');
@@ -81,7 +81,7 @@ var processData = function(data, time) {
   data.value = mand;
   
   // set last
-  audit.time = time;
+  audit.time = new Date(time).toUTCString();
   
   // preserve count
   data.audit[name] = audit;
