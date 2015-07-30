@@ -44,7 +44,7 @@ app.post('/api', function (req, res) {
   }
   
   var theTime = new Date();
-  console.log('(new) JSON Received '+new Date(theTime).toGMTString());
+  console.log('(new JSON) '+new Date(theTime).toGMTString());
   res.statusCode = 200; // status ok
   res.send('Received by 52.27.64.194 (Jordan)');
   
@@ -107,7 +107,7 @@ var manipulateData = function(input, book) {
     h_idx += 8;
   }
   
-  console.log('(processing) lines {'+lines.toString()+' of '+books[book]);
+  console.log('(processing) lines {'+lines.toString()+'} of \''+books[book]+'\'');
   return readLines(lines,book);
 }
 
