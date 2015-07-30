@@ -37,15 +37,12 @@ var pass = function(data) {
 
 
 var data = {
-    value:'029uenaod',
+    value:'029ueaod',
     count: 0,
     audit:{},
     order:[
-      'localhost',
-      '52.27.64.194',
       '52.27.64.194',
       'localhost',
-      '52.27.64.194',
     ]
   };
 senda(data);

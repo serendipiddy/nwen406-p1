@@ -77,7 +77,7 @@ app.get('/api', function (req, res) {
 });
 
 app.get('/api/final', function (req, res) {
-  return res.json(latestData);
+  return res.json(finalData);
 });
 
 /* bind and listen for connections */
