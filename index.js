@@ -44,12 +44,10 @@ app.post('/api', function (req, res) {
   }
   
   var theTime = Date.UTC();
-  console.log('(new) '+theTime);
+  console.log('(new) '+theTime.toString());
   console.log('(new) JSON Received');
   res.statusCode = 200; // status ok
-  res.json({
-    receivedBy: '52.27.64.194 (Jordan)'
-  });
+  res.send('Received by 52.27.64.194 (Jordan)');
   
   processData(req.body,theTime);
 });
