@@ -107,7 +107,7 @@ var manipulateData = function(input, book) {
     h_idx += 8;
   }
   
-  console.log('(processing) lines {'.lines.toString()+' of '+books[book]);
+  console.log('(processing) lines {'+lines.toString()+' of '+books[book]);
   return readLines(lines,book);
 }
 
