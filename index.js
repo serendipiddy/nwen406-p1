@@ -26,7 +26,9 @@ app.get('/log', function(req, res) {
   res.write('<title>Log file</title>');
   res.write('</head>');
   res.write('<body>');
+  res.write('<pre>');
   res.write(buf);
+  res.write('</pre>');
   res.write('</body>');
   res.write('</html>');
   res.send();
