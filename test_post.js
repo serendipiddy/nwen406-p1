@@ -33,6 +33,8 @@ var senda = function (data) {
     
 }
 
+
+
 var passObject = function (data) {
   var request = require('request');
   console.log('(passingObject)');
@@ -76,17 +78,17 @@ var pass = function(data) {
 var tryToSend = function(data, dest, attempt) {
   if (attempt > 2) nextDest(data);
   else {
+    var request = require('request');
     console.log('(sending) attempt:'+attempt);
     request.post(
-      url, 
+      dest, 
       {json: data},  
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == 200) {
           console.log('(sending) successful');
-          console.log('(respose) '+res);
+          console.log('(response) '+body);
         }
         else {console.log('(sending) err: '+err);}
-        lock = false;
       });
   };
 }
@@ -124,4 +126,4 @@ var data = {
       '52.27.64.194'
     ]
   };
-passObject(data);
+nextDest(data);
