@@ -47,15 +47,12 @@ app.post('/api', function (req, res) {
   console.log('(new JSON) '+new Date(theTime).toGMTString());
   res.statusCode = 200; // status ok
   res.send('Received by 52.27.64.194 (Jordan)');
-  // res.send('Received by <home-ip> (Iddy)');
   
   processData(req.body,theTime);
 });
 
 app.get('/api', function (req, res) {
   return res.json(latestData);
-    // '<html><body>/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL'+
-    // JSON.stringify(latestData,null,2)+'</body></html>');
 });
 
 /* bind and listen for connections */
@@ -64,10 +61,7 @@ var server = app.listen(3000, function() {
 });
 
 var processData = function(data, time) {
-  // var result = false;
-  
   var name = 'jordan';
-  // var index = data.count++;
   var audit = {};
   audit.input = data.value;
   audit.index = data.count++;
@@ -145,18 +139,18 @@ var tryToSend = function(data, dest, attempt) {
     nextDest(data);
   else {
     var request = require('request');
-    console.log('(sending) attempt'+attempt);
+    console.log('(sending)  '+dest+' attempt #'+attempt);
     request.post(
       dest, 
       {json: data},  
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == 200) {
-          console.log('(sending) successful'+dest);
-          console.log('(response) '+body);
-          console.log('(complete)');
+          console.log('(sending)  '+dest+': successful');
+          console.log('(response) '+dest+' '+body);
+          console.log('(complete) '+dest);
         }
         else {
-          console.log('(sending) err: '+err);
+          console.log('(sending)  '+dest+' err: '+err);
           tryToSend(data,dest,attempt+1);
         }
       });
