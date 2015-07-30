@@ -18,6 +18,7 @@ listens on port 3000.
 
 **POST: /api**
   input for the JSON to be manipulated.
+  Returns HTTP 202 *Accepted*.
   Accepts JSON of the structure:
   ```javascript
   {
@@ -28,7 +29,7 @@ listens on port 3000.
   }
   ```
 
-  Returns HTTP 202 accepted.
+  
 
 ## Data Manipulation Performed
 
