@@ -144,6 +144,8 @@ var tryToSend = function(data, dest, attempt) {
     request.post(
       dest, 
       {json: data},  
+      timeout: 500,
+      // timeout: parseInt(process.argv[2]),
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == status200) {
           console.log('(sending)  '+dest+': successful');
