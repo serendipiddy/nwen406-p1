@@ -15,6 +15,15 @@ app.get('/alive',function(req,res) {
   res.send('alive');
 });
 
+app.get('/log', function(req, res) {
+  var fs = require('fs');
+  var filename = '/tmp/forever/indes.log';
+  var buf = fs.readFileSync(filename);
+  
+  console.log('(Log requested)'+ new Date());
+  res.send(buf);
+});
+
 app.get('/test', function(req, res) {
   res.send("Hello :)");
 });
@@ -111,7 +120,7 @@ var manipulateData = function(input, book) {
   Returns 50 characters from the text. */
 var readLines = function(lines,book) {
   var fs = require('fs');
-  filename = __dirname+'/text/'+books[book]+'.txt';
+  var filename = __dirname+'/text/'+books[book]+'.txt';
   var buf = fs.readFileSync(filename, {encoding: 'utf-8'});
   var sp = buf.replace(/[^a-zA-Z \n]/g,"").split(/[\n]/);
   
@@ -144,13 +153,14 @@ var tryToSend = function(data, dest, attempt) {
     request.post(
       dest, 
       {json: data},  
-      timeout: 500,
+      timeout: 1000, // milliseconds
       // timeout: parseInt(process.argv[2]),
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == status200) {
           console.log('(sending)  '+dest+': successful');
           console.log('(response) '+dest+' '+body);
           console.log('(complete) '+dest);
+          latestData = data;
         }
         else {
           console.log('(sending)  '+dest+' err: '+err);
