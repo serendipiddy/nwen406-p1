@@ -43,7 +43,8 @@ app.post('/api', function (req, res) {
     // return res.send('Error 400: POST syntax incorrect.');
   }
   
-  console.log('(new) JSON Received') // :\n'+JSON.stringify(req.body, null, 2));
+  console.log('(new) '+new Date.UTC());
+  console.log('(new) JSON Received');
   res.statusCode = 200; // status ok
   res.json({
     receivedBy: '52.27.64.194 (Jordan)'

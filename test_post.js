@@ -1,15 +1,5 @@
 var senda = function (data) {
   var request = require('request');
-  var data = {
-    value:'the beginning value',
-    count: 0,
-    audit:{},
-    order:[
-      '52.27.64.194',
-      '52.27.64.194',
-      '52.27.64.194'
-    ]
-  };
   
   var dest = "52.27.64.194";
   var url = "http://"+dest+"/api"; // pop from order
