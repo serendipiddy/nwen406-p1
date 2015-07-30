@@ -24,6 +24,7 @@ app.post('/test', function(req, res) {
   res.statusCode = 200;
   res.send('Received by 52.27.64.194 (Jordan)');
   latestData = req.body;
+  console.log(req.body);
 });
 
 app.post('/api', function (req, res) {
