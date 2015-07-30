@@ -75,7 +75,7 @@ var processData = function(data, time) {
   
   /* Do my playing */
   // console.log('('+audit.input.substring(0,10)+') Manipulating');
-  var book = 2;
+  var book = 1;
   var mand = manipulateData(data.value, book);
   console.log('(processing) Output: '+mand);
   audit.output = mand;

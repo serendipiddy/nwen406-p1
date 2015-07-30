@@ -1,8 +1,7 @@
 var senda = function (data) {
   var request = require('request');
   
-  var dest = "52.27.64.194";
-  var url = "http://"+dest+"/api"; // pop from order
+  var url = "http://52.27.64.194/api"; // pop from order
 
   console.log('SENDING'
       +'\nto:   '+url
@@ -13,7 +12,7 @@ var senda = function (data) {
     url, 
     {json: data},  // NO: {json: JSON.stringify(data)},
     function(err, res, body) { // resp is from POST
-      if (!err && res.statusCode == 200) {
+      if (!err && res.statusCode == 202) {
         console.log('success:\n'+body);
       }
       else {
@@ -43,9 +42,10 @@ var data = {
     audit:{},
     order:[
       'localhost',
+      // '52.27.18.155',
       '52.27.64.194',
       'localhost:3001',
-      // '52.27.18.155',
+      '52.27.64.194',
       // '52.27.228.163',
       // '52.27.64.194'
     ]
