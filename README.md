@@ -20,12 +20,14 @@ POST: /api
   input for the JSON to be manipulated.
 
   accepts JSON of the structure:
+  '''
   {
     value: 'string to be altered',
     count: 0,    /* number of nodes successfully visited */
     audit: {},   /* visited nodes */
     order: [],   /* queue of addresses to be visited */
   }
+  '''
 
   Returns HTTP 202 accepted.
 
