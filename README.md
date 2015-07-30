@@ -20,7 +20,7 @@ POST: /api
   input for the JSON to be manipulated.
 
   accepts JSON of the structure:
-  ```json
+  ```javascript
   {
     value: 'string to be altered',
     count: 0,    /* number of nodes successfully visited */
