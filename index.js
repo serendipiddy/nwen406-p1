@@ -17,7 +17,7 @@ app.get('/alive',function(req,res) {
 
 app.get('/log', function(req, res) {
   var fs = require('fs');
-  var filename = '/tmp/forever/indes.log';
+  var filename = '/tmp/forever/index.log';
   var buf = fs.readFileSync(filename);
   
   console.log('(Log requested)'+ new Date());
