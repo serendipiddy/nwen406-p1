@@ -2,9 +2,9 @@
 
 The first project for NWEN406.
 
-A server in an cluster of servers. Each takes a JSON string, alters a value, and passes it on.
+This exists as a node in a relay group, where each node takes a JSON string and alters its value before passing the message on.
 
-listens on port 3000.
+Listens on port 3000.
 
 ##RESTful Interface:
 **GET: /alive**
@@ -38,8 +38,6 @@ listens on port 3000.
     time: "Day, ... GMT",    /* time of receipt of input */
   }
   ```
-
-  
 
 ## Data Manipulation Performed
 
