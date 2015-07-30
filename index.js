@@ -22,6 +22,7 @@ app.post('/test', function(req, res) {
   console.log("Recieved:"+req.body.value);
   console.log("Recieved:"+req);
   res.statusCode = 200;
+  res.send('Received by jordan');
 });
 
 app.post('/api', function (req, res) {

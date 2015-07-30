@@ -60,8 +60,7 @@ var passObject = function (data) {
       else {console.log('err:'+err);}
       lock = false;
     });
-  };
-}
+};
 
 var pass = function(data) {
   // check dest
@@ -84,12 +83,12 @@ var tryToSend = function(data, dest, attempt) {
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == 200) {
           console.log('(sending) successful');
+          console.log('(respose) '+res);
         }
         else {console.log('(sending) err: '+err);}
         lock = false;
       });
-    };
-  }
+  };
 }
 /* slides the next address, then tries to send. 
   If no address dumps JSON*/
@@ -120,8 +119,8 @@ var data = {
     count: 0,
     audit:{},
     order:[
-      '52.27.64.12',
       '52.27.64.194',
+      '52.27.64.12',
       '52.27.64.194'
     ]
   };
