@@ -43,14 +43,15 @@ app.post('/api', function (req, res) {
     // return res.send('Error 400: POST syntax incorrect.');
   }
   
-  console.log('(new) '+Date.UTC());
+  var theTime = Date.UTC();
+  console.log('(new) '+theTime);
   console.log('(new) JSON Received');
   res.statusCode = 200; // status ok
   res.json({
     receivedBy: '52.27.64.194 (Jordan)'
   });
   
-  processData(req.body);
+  processData(req.body,theTime);
 });
 
 app.get('/api', function (req, res) {
@@ -64,7 +65,7 @@ var server = app.listen(3000, function() {
   console.log('Listening on port %d', server.address().port);
 });
 
-var processData = function(data) {
+var processData = function(data, time) {
   // var result = false;
   
   var name = 'jordan';
@@ -82,8 +83,7 @@ var processData = function(data) {
   data.value = mand;
   
   // set last
-  var date = new Date();
-  audit.time = date;
+  audit.time = time;
   
   // preserve count
   data.audit[name] = audit;
