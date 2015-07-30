@@ -32,8 +32,8 @@ listens on port 3000.
   Where audit is an object inserted by each hop, of the form:
   ```javascript
   {
-    input: 'string to be altered',
-    output: 'string altered',
+    input:  'string to be altered',
+    output: 'the altered string',
     index: 0,                /* this nodes hop count */
     time: "Day, ... GMT",    /* time of receipt of input */
   }
