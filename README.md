@@ -48,6 +48,6 @@ Listens on port 3000.
 
 ## Data Manipulation Performed
 
-The value string received is hased (MD5). The hash is then used to determine four positions from within Pride And Prejudice to read up to 5 words from that point. The first 50 characters of this output is then sent as the next value.
+The value string received is first hashed (MD5). This hashed value is then used to determine four positions from within *Pride And Prejudice*, and reads up to 5 words from that point. The first 50 characters of this output is then sent as the next value.
 
 Other book options are available in *text*, but must be set in-code.
