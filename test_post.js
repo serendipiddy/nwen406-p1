@@ -73,10 +73,12 @@ var pass = function(data) {
       // nowhere left to send, dump JSON.
 
 }
+
  /* Tries to send data to destination.
   On the third attempt, skips the current address. */
 var tryToSend = function(data, dest, attempt) {
-  if (attempt > 2) nextDest(data);
+  if (attempt > 2) 
+    nextDest(data);
   else {
     var request = require('request');
     console.log('(sending) attempt:'+attempt);
@@ -89,9 +91,11 @@ var tryToSend = function(data, dest, attempt) {
           console.log('(response) '+body);
         }
         else {console.log('(sending) err: '+err);}
+        tryToSend(data,dest,attempt+1);
       });
   };
 }
+
 /* slides the next address, then tries to send. 
   If no address dumps JSON*/
 var nextDest = function (data) {
@@ -121,9 +125,22 @@ var data = {
     count: 0,
     audit:{},
     order:[
+      'localhost',
       '52.27.64.194',
-      '52.27.64.12',
+      '52.27.18.155',
+      '52.27.228.163',
       '52.27.64.194'
     ]
   };
 nextDest(data);
+
+
+/* 
+Team Addresses:
+54.148.44.105   Olly
+52.27.18.155    Alex 
+52.27.228.163   Callum 
+54.68.184.120   Sarah 
+52.27.64.194    Jordan 
+54.153.210.139  Max 
+*/

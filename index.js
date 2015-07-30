@@ -47,9 +47,9 @@ app.post('/api', function (req, res) {
 });
 
 app.get('/api', function (req, res) {
-  return res.send(
-    '<html><body>/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL'+
-    JSON.stringify(latestData,null,2)+'</body></html>');
+  return res.json(latestData);
+    // '<html><body>/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL'+
+    // JSON.stringify(latestData,null,2)+'</body></html>');
 });
 
 /* bind and listen for connections */
