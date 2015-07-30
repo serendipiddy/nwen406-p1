@@ -4,6 +4,13 @@ The first project for NWEN406.
 
 This exists as a node in a relay group, where each node takes a JSON string and alters its value before passing the message on.
 
+Uses libraries:
+  * request
+  * express
+  * crypto (md5)
+  * fs (sync)
+  * forever
+
 Listens on port 3000.
 
 ##RESTful Interface:
