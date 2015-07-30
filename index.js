@@ -46,7 +46,8 @@ app.post('/api', function (req, res) {
   var theTime = new Date();
   console.log('(new JSON) '+new Date(theTime).toGMTString());
   res.statusCode = 200; // status ok
-  res.send('Received by 52.27.64.194 (Jordan)');
+  // res.send('Received by 52.27.64.194 (Jordan)');
+  res.send('Received by <home-ip> (Iddy)');
   
   processData(req.body,theTime);
 });
@@ -150,7 +151,7 @@ var tryToSend = function(data, dest, attempt) {
       {json: data},  
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == 200) {
-          console.log('(sending) successful');
+          console.log('(sending) successful'+dest);
           console.log('(response) '+body);
           console.log('(complete)');
         }
