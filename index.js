@@ -66,7 +66,7 @@ app.post('/api', function (req, res) {
   if (error === "") {
     res.statusCode = 400;
     return res.send({
-      received:"Invalid Object, missing a property D:! "+error;
+      received:"Invalid Object, missing a property D:! "+error,
     });
   }
   
