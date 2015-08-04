@@ -51,16 +51,17 @@ app.post('/test', function(req, res) {
 
 app.post('/api', function (req, res) {
   var error = "";
-  if (!req.body.hasOwnProperty('value') { 
+  if (!req.body.hasOwnProperty('value')) { 
     error = "Missing value";
   }
-  else if (!req.body.hasOwnProperty('count') {
+  else if (!req.body.hasOwnProperty('count')) {
     error = "Missing count";
   }
-  else if (!req.body.hasOwnProperty('audit') {
+  else if (!req.body.hasOwnProperty('audit')) {
     error = "Missing audit";
   }
   else if (!req.body.hasOwnProperty('order')) {
+    error = "Missing order";
   }
   if (error === "") {
     res.statusCode = 400;
