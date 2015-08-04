@@ -53,10 +53,11 @@ app.post('/api', function (req, res) {
   var error = "";
   var json = req.accepts('json');
   var html = req.accepts('html');
-  if(!json) {
-    error = "Not valid as JSON";
-  }
-  else if (!req.body.hasOwnProperty('value')) { 
+  // if(!json) {
+    // error = "Not valid as JSON";
+  // }
+  // else
+  if (!req.body.hasOwnProperty('value')) { 
     error = "Missing property: value";
   }
   else if (!req.body.hasOwnProperty('count')) {
