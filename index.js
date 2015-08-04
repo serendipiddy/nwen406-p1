@@ -97,7 +97,7 @@ var server = app.listen(3000, function() {
 var processData = function(data, time) {
   var name = 'jordan';
   
-  if (data.audit.hasProperty['name']) {
+  if (data['audit'].hasProperty['name']) {
     var i = 0;
     name = name+""+i;
     while (data.audit.hasProperty['name'])
