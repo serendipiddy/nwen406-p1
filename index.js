@@ -97,13 +97,10 @@ var server = app.listen(3000, function() {
 var processData = function(data, time) {
   var name = 'jordan';
   
-  console.log(JSON.stringify(data,null,2));
+  // console.log(JSON.stringify(data,null,2));
   
-  if (data['audit'].hasOwnProperty(name)) {
-    var i = 0;
-    name = name+""+i;
-    while (data.audit.hasOwnProperty(name))
-      name = name.substring(0,name.length-1)+""+i;
+  if (!data['audit'].hasOwnProperty(name)) {
+    data.audit[name] = []
   }
   
   var audit = {};
@@ -121,7 +118,7 @@ var processData = function(data, time) {
   data.value = mand;
   
   console.log('(processing) attaching audit');
-  data.audit[name] = audit;
+  data.audit[name].push(audit);
   // latestData = data;
   
   /* Send to next */
