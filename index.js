@@ -23,7 +23,7 @@ app.get('/log', function(req, res) {
   console.log('(Log requested)'+ new Date());
   res.write('<html> <head> <title>Log file</title> </head>');
   res.write('<body>');
-  res.write('<h1>Log at: '+new Date().toUTCString();+'</h1>');
+  res.write('<h1>Log at: '+new Date().toUTCString()+'</h1>');
   res.write('<pre>'+buf+'</pre>');
   res.write('</body> </html>');
   res.send();
