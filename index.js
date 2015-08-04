@@ -52,7 +52,9 @@ app.post('/test', function(req, res) {
 app.post('/api', function (req, res) {
   var error = "";
   var json = req.accepts('json');
+  var html = req.accepts('html');
   console.log(json);
+  console.log(html);
   
   if (!req.body.hasOwnProperty('value')) { 
     error = "Missing value";

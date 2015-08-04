@@ -2,6 +2,7 @@ var senda = function (data) {
   var request = require('request');
   
   var url = "http://52.27.64.194/api"; // pop from order
+  // var url = "http://sarah.olly.kiwi/api"; // pop from order
 
   console.log('SENDING'
       +'\nto:   '+url
@@ -41,7 +42,6 @@ var data = {
     count: 0,
     audit:{},
     order:[
-      'jordan.olly.kiwi',
       'max.olly.kiwi',
       'jordan.olly.kiwi',
       'max.olly.kiwi',
@@ -50,21 +50,9 @@ var data = {
       'jordan.olly.kiwi',
       'max.olly.kiwi',
       'jordan.olly.kiwi',
-      'max.olly.kiwi',
-      'jordan.olly.kiwi',
-      'max.olly.kiwi',
-      'jordan.olly.kiwi',
-      'max.olly.kiwi',
-      'jordan.olly.kiwi',
-      'max.olly.kiwi',
-      'jordan.olly.kiwi',
-      'max.olly.kiwi',
-      'jordan.olly.kiwi',
-      'max.olly.kiwi',
-      'jordan.olly.kiwi',
-      'max.olly.kiwi',
-      'jordan.olly.kiwi',
-      'max.olly.kiwi',
+      // 'jordan.olly.kiwi',
+      // 'jordan.olly.kiwi',
+      // 'jordan.olly.kiwi',
       // 'olly.olly.kiwi',
       // 'sarah.olly.kiwi',
       // 'callum.olly.kiwi',
