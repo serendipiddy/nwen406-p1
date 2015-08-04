@@ -41,8 +41,6 @@ var data = {
     count: 0,
     audit:{},
     order:[
-      '52.27.64.194',
-      'localhost',
     ]
   };
 senda(data);
