@@ -200,7 +200,7 @@ var nextDest = function (data) {
     tryToSend(data, url, attempt);
   }
   else {
-    console.log('(end)      No next address');
+    console.log('(end)        No next address');
     dumpCurrentJSON(data);
   }
 }
