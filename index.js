@@ -50,22 +50,33 @@ app.post('/test', function(req, res) {
 });
 
 app.post('/api', function (req, res) {
-  if (!req.body.hasOwnProperty('value') 
-    || !req.body.hasOwnProperty('count') 
-    || !req.body.hasOwnProperty('audit') 
-    || !req.body.hasOwnProperty('order')) {
+  var error = "";
+  if (!req.body.hasOwnProperty('value') { 
+    error = "Missing value";
+  }
+  else if (!req.body.hasOwnProperty('count') {
+    error = "Missing count";
+  }
+  else if (!req.body.hasOwnProperty('audit') {
+    error = "Missing audit";
+  }
+  else if (!req.body.hasOwnProperty('order')) {
+  }
+  if (error === "") {
     res.statusCode = 400;
     return res.send({
-      received:"Invalid JSON D:!"
+      received:"Invalid Object, missing a property D:! "+error;
     });
   }
   
-  var theTime = new Date();
-  console.log('(new JSON) '+new Date(theTime).toGMTString());
-  res.statusCode = status200; // status ok
-  res.send('Received by 52.27.64.194 (Jordan)');
-  
-  processData(req.body,theTime);
+  else {
+    var theTime = new Date();
+    console.log('(new JSON) '+new Date(theTime).toGMTString());
+    res.statusCode = status200; // status ok
+    res.send('Received by 52.27.64.194 (Jordan)');
+    
+    processData(req.body,theTime);
+  }
 });
 
 app.get('/api', function (req, res) {
