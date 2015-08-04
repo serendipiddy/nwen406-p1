@@ -11,7 +11,7 @@ var foreverPath = '/home/ec2-user/.forever'
 
 /* RESTful calls */
 app.get('/alive',function(req,res) {
-  res.send('alive');
+  res.send('yup, I\'m alive');
 });
 
 app.get('/log', function(req, res) {
@@ -20,16 +20,11 @@ app.get('/log', function(req, res) {
   var buf = fs.readFileSync(filename);
   
   console.log('(Log requested)'+ new Date());
-  res.write('<html>');
-  res.write('<head>');
-  res.write('<title>Log file</title>');
-  res.write('</head>');
+  res.write('<html> <head> <title>Log file</title> </head>');
   res.write('<body>');
-  res.write('<pre>');
-  res.write(buf);
-  res.write('</pre>');
-  res.write('</body>');
-  res.write('</html>');
+  res.write('<h1>Log at: '+new Date().toUTCString();+'</h1>');
+  res.write('<pre>'+buf+'</pre>');
+  res.write('</body> </html>');
   res.send();
 });
 
@@ -42,42 +37,30 @@ app.post('/test', function(req, res) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
-  console.log("(test-Recieved) \""+req.body.value+"\"");
+  console.log("(test-received) \""+req.body.value+"\"");
   res.statusCode = status200;
-  res.send('Received by 52.27.64.194 (Jordan)');
-  latestData = req.body;
+  res.send('Received by 52.27.64.194 (Jordan-test)');
   console.log(req.body);
 });
 
 app.post('/api', function (req, res) {
   var error = "";
+  
   var json = req.accepts('json');
-  var html = req.accepts('html');
-  if(!json) {
-    error = "Not JSON type";
-  }
-  else if (!req.body.hasOwnProperty('value')) { 
-    error = "Missing property: value";
-  }
-  else if (!req.body.hasOwnProperty('count')) {
-    error = "Missing property: count";
-  }
-  else if (!req.body.hasOwnProperty('audit')) {
-    error = "Missing property: audit";
-  }
-  else if (!req.body.hasOwnProperty('order')) {
-    error = "Missing property: order";
-  }
+  if(!json) { error = "Not JSON type"; }
+  else if (!req.body.hasOwnProperty('value')) { error = "Missing property: value"; }
+  else if (!req.body.hasOwnProperty('count')) { error = "Missing property: count"; }
+  else if (!req.body.hasOwnProperty('audit')) { error = "Missing property: audit"; }
+  else if (!req.body.hasOwnProperty('order')) { error = "Missing property: order"; }
+  
   if (!(error === "")) {
     res.statusCode = 400;
-    return res.send({
-      received:"Invalid JSON Object D:! "+error,
-    });
+    return res.send({ received:"Invalid JSON Object D:! "+error, });
   }
   
   else {
     var theTime = new Date();
-    console.log('(new JSON) '+new Date(theTime).toGMTString());
+    console.log('(new JSON)   ====== '+new Date(theTime).toGMTString()+' ======');
     res.statusCode = status200; // status ok
     res.send('Received by 52.27.64.194 (Jordan)');
     
@@ -95,17 +78,16 @@ app.get('/api/final', function (req, res) {
 
 /* bind and listen for connections */
 var server = app.listen(3000, function() {
-  // console.log('Listening on port %d', server.address().port);
-  console.log('(Server running)');
+  console.log('(Server running) ====== '+new Date(theTime).toGMTString()+' ======');
 });
 
+/* Process the inbound JSON object, 
+  then pass on to next hop */
 var processData = function(data, time) {
   var name = 'jordan';
   
-  // console.log(JSON.stringify(data,null,2));
-  
   if (!data['audit'].hasOwnProperty(name)) {
-    data.audit[name] = []
+    data.audit[name] = [];
   }
   
   var audit = {};
@@ -115,7 +97,6 @@ var processData = function(data, time) {
   console.log('(processing) Input: '+audit.input);
   
   /* Do my playing */
-  // console.log('('+audit.input.substring(0,10)+') Manipulating');
   var book = 2;
   var mand = manipulateData(data.value, book);
   console.log('(processing) Output: '+mand);
@@ -124,9 +105,9 @@ var processData = function(data, time) {
   
   console.log('(processing) attaching audit');
   data.audit[name].push(audit);
-  // latestData = data;
   
   /* Send to next */
+  latestData = data;
   nextDest(data);
 }
 
@@ -185,23 +166,21 @@ var tryToSend = function(data, dest, attempt) {
     nextDest(data);
   else {
     var request = require('request');
-    console.log('(sending)  '+dest+' attempt #'+attempt);
+    console.log('(sending)    '+dest+': attempt #'+attempt);
     request.post(
       dest, 
       { // options
         json: data,
         timeout: 1000, // milliseconds
       },  
-      // timeout: parseInt(process.argv[2]),
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == status200) {
-          console.log('(sending)  '+dest+': successful');
-          console.log('(response) '+dest+' '+body);
-          console.log('(complete) '+dest);
-          latestData = data;
+          console.log('(sending)    '+dest+': successful');
+          console.log('(response)   '+dest+': '+body);
+          console.log('(complete)   '+dest);
         }
         else {
-          console.log('(sending)  '+dest+' err: '+err);
+          console.log('(sending)    '+dest+' err: '+err);
           tryToSend(data,dest,attempt+1);
         }
       });
@@ -216,11 +195,11 @@ var nextDest = function (data) {
     var url = "http://"+dest+"/api"; 
     attempt = 0;
     
-    console.log('(sending)  next dest: '+url);
+    console.log('(sending)    next dest: '+url);
     tryToSend(data, url, attempt);
   }
   else {
-    console.log('(end) No next address');
+    console.log('(end)      No next address');
     dumpCurrentJSON(data);
   }
 }
@@ -228,7 +207,7 @@ var nextDest = function (data) {
 /* Completes a sending sequence. Makes the
   JSON data available through: GET .../api */
 var dumpCurrentJSON = function(data) {
-  console.log('(complete) Final JSON:');
+  console.log('(complete)   Final JSON:');
   finalData = data;
   console.log(JSON.stringify(data, null, 2));
 }

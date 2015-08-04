@@ -1,18 +1,16 @@
 var senda = function (data) {
   var request = require('request');
   
-  var url = "http://52.27.64.194/api"; // pop from order
-  // var url = "http://sarah.olly.kiwi/api"; // pop from order
+  var url = "http://jordan.olly.kiwi/api";
 
   console.log('SENDING'
       +'\nto:   '+url
-      // +'\ndata: \n'+JSON.stringify(data));
       +'\ndata: \n'+JSON.stringify(data, null, 2));
       
   request.post(
     url, 
-    {json: data},  // NO: {json: JSON.stringify(data)},
-    function(err, res, body) { // resp is from POST
+    {json: data},
+    function(err, res, body) {
       if (!err && res.statusCode == 202) {
         console.log('success:\n'+body);
       }
@@ -20,7 +18,6 @@ var senda = function (data) {
         console.log('err:'+err);
       }
     });
-    
 }
 
 var data = {
@@ -29,33 +26,9 @@ var data = {
     audit:{},
     order:[
       'max.olly.kiwi',
+      'olly.olly.kiwi',
+      'alex.olly.kiwi',
       'jordan.olly.kiwi',
-      // 'olly.olly.kiwi',
-      // 'alex.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'olly.olly.kiwi',
-      // 'alex.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'olly.olly.kiwi',
-      // 'alex.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'olly.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'olly.olly.kiwi',
-      // 'alex.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'olly.olly.kiwi',
-      // 'alex.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'max.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'max.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'jordan.olly.kiwi',
-      // 'olly.olly.kiwi',
       // 'sarah.olly.kiwi',
       // 'callum.olly.kiwi',
     ]
