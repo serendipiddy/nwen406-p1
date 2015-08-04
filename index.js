@@ -79,7 +79,7 @@ app.get('/api/final', function (req, res) {
 
 /* bind and listen for connections */
 var server = app.listen(portNumber, function() {
-  console.log('(Server running) ====== '+new Date(theTime).toGMTString()+' ======');
+  console.log('(Server running) ====== '+new Date().toGMTString()+' ======');
 });
 
 /* Process the inbound JSON object, 
