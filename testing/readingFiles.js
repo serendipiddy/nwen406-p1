@@ -78,7 +78,6 @@ var manipulateData = function(input, line_num) {
   while (h_idx < h.length) {
     l += parseInt(h.substring(h_idx,h_idx+4),16);
     for (var i = 4; i < 8; i+=2) {
-      // l += parseInt(h.charAt(h_idx+i),16);
       l += parseInt(h.substring(h_idx+i,h_idx+i+2),16);
       console.log("l: "+l+" offset: "+i);
     }
@@ -89,5 +88,4 @@ var manipulateData = function(input, line_num) {
   return readFile(lines);
 }
 
-// readFile(2, [29,2]);
-console.log(manipulateData("yiyin", 10658));
+console.log(manipulateData("hello", 10658));

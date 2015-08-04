@@ -1,72 +1,62 @@
 var express = require('express');
 var app = express();
 app.use(express.bodyParser());
-app.use(express.static('html')); /* serving out static files in directory 'html' 
-                                    will use to serve a D3 animation, if time.
-                                    Perhaps also a POST-ing page. */
 
 var books = ["poe","gulliver","pride","siddhartha"];
 var lengthOfBook = [7898,8463,10658,3337];
-var latestData = {latest: 'none'};
+var latestData = 'none';
+var finalData = 'none';
+var portNumber = 3000;
 var status200 = 202; // HTTP status used by the API
 
 /* RESTful calls */
-app.get('/alive',function(req,res) {
-  res.send('alive');
-});
-
-app.get('/test', function(req, res) {
-  res.send("Hello :)");
-});
-
-app.post('/test', function(req, res) {
-  if (!req.body.hasOwnProperty('value')) {
-    res.statusCode = 400;
-    return res.send('Error 400: Post syntax incorrect.');
-  }
-  console.log("(test-Recieved) \""+req.body.value+"\"");
-  res.statusCode = status200;
-  res.send('Received by <home-ip> (Jordan)');
-  latestData = req.body;
-  console.log(req.body);
-});
-
 app.post('/api', function (req, res) {
-  if (!req.body.hasOwnProperty('value') 
-    || !req.body.hasOwnProperty('count') 
-    || !req.body.hasOwnProperty('audit') 
-    || !req.body.hasOwnProperty('order')) {
+  var error = "";
+  
+  var json = req.accepts('json');
+  if(!json) { error = "Not JSON type"; }
+  else if (!req.body.hasOwnProperty('value')) { error = "Missing property: value"; }
+  else if (!req.body.hasOwnProperty('count')) { error = "Missing property: count"; }
+  else if (!req.body.hasOwnProperty('audit')) { error = "Missing property: audit"; }
+  else if (!req.body.hasOwnProperty('order')) { error = "Missing property: order"; }
+  
+  if (!(error === "")) {
     res.statusCode = 400;
-    return res.send({
-      received:"Invalid JSON D:!"
-    });
-    // return res.send('Error 400: POST syntax incorrect.');
+    return res.send({ received:"Invalid JSON Object D:! "+error, });
   }
   
-  var theTime = new Date();
-  console.log('(new JSON) '+new Date(theTime).toGMTString());
-  res.statusCode = status200; // status ok
-  res.send('Received by <home-ip> (Jordan)');
-  
-  processData(req.body,theTime);
+  else {
+    var theTime = new Date();
+    console.log('(new JSON)   ====== '+new Date(theTime).toGMTString()+' ======');
+    res.statusCode = status200; // status ok
+    res.send('Received by local copy (Jordan)');
+    
+    processData(req.body,theTime);
+  }
 });
 
 app.get('/api', function (req, res) {
-  return res.json(latestData);
-    // '<html><body>/api says: "GOT: <3 <(\'\'<)\n Oh noes! You should be using POST .OTL'+
-    // JSON.stringify(latestData,null,2)+'</body></html>');
+  return res.json({latest:latestData,final:finalData});
+});
+
+app.get('/api/final', function (req, res) {
+  return res.json(finalData);
 });
 
 /* bind and listen for connections */
-var server = app.listen(3000, function() {
-  console.log('Listening on port %d', server.address().port);
+var server = app.listen(portNumber, function() {
+  console.log('(Server running) ====== '+new Date(theTime).toGMTString()+' ======');
 });
 
+/* Process the inbound JSON object, 
+  then pass on to next hop */
 var processData = function(data, time) {
-  // var result = false;
+  var name = 'jordan-local';
   
-  var name = 'jordan';
-  // var index = data.count++;
+  if (!data['audit'].hasOwnProperty(name)) {
+    data.audit[name] = [];
+  }
+  
   var audit = {};
   audit.input = data.value;
   audit.index = data.count++;
@@ -74,18 +64,17 @@ var processData = function(data, time) {
   console.log('(processing) Input: '+audit.input);
   
   /* Do my playing */
-  // console.log('('+audit.input.substring(0,10)+') Manipulating');
-  var book = 1;
+  var book = 2;
   var mand = manipulateData(data.value, book);
   console.log('(processing) Output: '+mand);
   audit.output = mand;
   data.value = mand;
   
   console.log('(processing) attaching audit');
-  data.audit[name] = audit;
-  // latestData = data;
+  data.audit[name].push(audit);
   
   /* Send to next */
+  latestData = data;
   nextDest(data);
 }
 
@@ -115,7 +104,7 @@ var manipulateData = function(input, book) {
   Returns 50 characters from the text. */
 var readLines = function(lines,book) {
   var fs = require('fs');
-  filename = __dirname+'/text/'+books[book]+'.txt';
+  var filename = __dirname+'/text/'+books[book]+'.txt';
   var buf = fs.readFileSync(filename, {encoding: 'utf-8'});
   var sp = buf.replace(/[^a-zA-Z \n]/g,"").split(/[\n]/);
   
@@ -144,18 +133,21 @@ var tryToSend = function(data, dest, attempt) {
     nextDest(data);
   else {
     var request = require('request');
-    console.log('(sending)  '+dest+' attempt #'+attempt);
+    console.log('(sending)    '+dest+': attempt #'+attempt);
     request.post(
       dest, 
-      {json: data},  
+      { // options
+        json: data,
+        timeout: 1000, // milliseconds
+      },  
       function(err, res, body) { // resp is from POST
         if (!err && res.statusCode == status200) {
-          console.log('(sending)  '+dest+': successful');
-          console.log('(response) '+dest+' '+body);
-          console.log('(complete) '+dest);
+          console.log('(sending)    '+dest+': successful');
+          console.log('(response)   '+dest+': '+body);
+          console.log('(complete)   '+dest);
         }
         else {
-          console.log('(sending)  '+dest+' err: '+err);
+          console.log('(sending)    '+dest+' err: '+err);
           tryToSend(data,dest,attempt+1);
         }
       });
@@ -170,11 +162,11 @@ var nextDest = function (data) {
     var url = "http://"+dest+"/api"; 
     attempt = 0;
     
-    console.log('(sending) next dest: '+url);
+    console.log('(sending)    next dest: '+url);
     tryToSend(data, url, attempt);
   }
   else {
-    console.log('(end) No next address');
+    console.log('(end)      No next address');
     dumpCurrentJSON(data);
   }
 }
@@ -182,7 +174,7 @@ var nextDest = function (data) {
 /* Completes a sending sequence. Makes the
   JSON data available through: GET .../api */
 var dumpCurrentJSON = function(data) {
-  console.log('(complete) Final JSON:');
-  latestData = data;
+  console.log('(complete)   Final JSON:');
+  finalData = data;
   console.log(JSON.stringify(data, null, 2));
 }

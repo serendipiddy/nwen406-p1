@@ -6,6 +6,7 @@ var books = ["poe","gulliver","pride","siddhartha"];
 var lengthOfBook = [7898,8463,10658,3337];
 var latestData = 'none';
 var finalData = 'none';
+var portNumber = 3000;
 var status200 = 202; // HTTP status used by the API
 var foreverPath = '/home/ec2-user/.forever'
 
@@ -77,7 +78,7 @@ app.get('/api/final', function (req, res) {
 });
 
 /* bind and listen for connections */
-var server = app.listen(3000, function() {
+var server = app.listen(portNumber, function() {
   console.log('(Server running) ====== '+new Date(theTime).toGMTString()+' ======');
 });
 
