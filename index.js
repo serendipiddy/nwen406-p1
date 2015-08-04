@@ -51,6 +51,9 @@ app.post('/test', function(req, res) {
 
 app.post('/api', function (req, res) {
   var error = "";
+  var json = req.accepts('json');
+  console.log(json);
+  
   if (!req.body.hasOwnProperty('value')) { 
     error = "Missing value";
   }
