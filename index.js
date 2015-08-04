@@ -99,10 +99,10 @@ var processData = function(data, time) {
   
   console.log(JSON.stringify(data,null,2));
   
-  if (data['audit'].hasProperty(name)) {
+  if (data['audit'].hasOwnProperty(name)) {
     var i = 0;
     name = name+""+i;
-    while (data.audit.hasProperty(name))
+    while (data.audit.hasOwnProperty(name))
       name = name.substring(0,name.length-1)+""+i;
   }
   
