@@ -53,25 +53,25 @@ app.post('/api', function (req, res) {
   var error = "";
   var json = req.accepts('json');
   var html = req.accepts('html');
-  console.log(json);
-  console.log(html);
-  
-  if (!req.body.hasOwnProperty('value')) { 
-    error = "Missing value";
+  if(!json) {
+    error = "Not valid as JSON";
+  }
+  else if (!req.body.hasOwnProperty('value')) { 
+    error = "Missing property: value";
   }
   else if (!req.body.hasOwnProperty('count')) {
-    error = "Missing count";
+    error = "Missing property: count";
   }
   else if (!req.body.hasOwnProperty('audit')) {
-    error = "Missing audit";
+    error = "Missing property: audit";
   }
   else if (!req.body.hasOwnProperty('order')) {
-    error = "Missing order";
+    error = "Missing property: order";
   }
   if (!(error === "")) {
     res.statusCode = 400;
     return res.send({
-      received:"Invalid Object, missing a property D:! "+error,
+      received:"Invalid JSON Object D:! "+error,
     });
   }
   
