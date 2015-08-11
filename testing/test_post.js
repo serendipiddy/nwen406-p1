@@ -1,4 +1,4 @@
-var senda = function (data) {
+var send = function (data) {
   var request = require('request');
   
   var url = "http://jordan.olly.kiwi/api";
@@ -25,17 +25,18 @@ var data = {
     count: 0,
     audit:{},
     order:[
+      'alex.olly.kiwi',
       'sarah.olly.kiwi',
-      'jordan.olly.kiwi',
       'callum.olly.kiwi',
+      'max.olly.kiwi',
+      'olly.olly.kiwi',
       'jordan.olly.kiwi',
-      // 'max.olly.kiwi',
-      // 'olly.olly.kiwi',
-      // 'alex.olly.kiwi',
+    ]
+  };
+  
+send(data);
+
       // 'jordan.olly.kiwi',
       // 'olly.olly.kiwi',
       // 'alex.olly.kiwi',
       // 'max.olly.kiwi',
-    ]
-  };
-senda(data);
